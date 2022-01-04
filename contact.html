@@ -156,11 +156,11 @@
                     <h2>How Can I Help You?</h2>
                   </div>
 
-                  <!-- <form id="submit-form" class="contact-form" action="" method="post">
+                  <form id="submit-form" class="contact-form" action="" method="post">
 
                       <div class="messages"></div>
 
-                      <div class="controls two-columns">
+                      <!-- <div class="controls two-columns">
                         <div class="fields clearfix">
                           <div class="left-column">
                             <div class="form-group form-group-with-icon">
@@ -185,44 +185,47 @@
                               <div class="form-control-border"></div>
                               <div class="help-block with-errors"></div>
                             </div>
-
+                            </div>
+                            <div class="right-column">
                             <div class="form-group form-group-with-icon">
                               <input id="form_name" type="text" name="subject" class="form-control" placeholder="Subject" required="required" data-error="Subject is required.">
                               <div class="form-control-border"></div>
                               <div class="help-block with-errors"></div>
                             </div>
-                          </div>
-                          <div class="right-column">
+                          
+                          
                             <div class="form-group form-group-with-icon">
                               <textarea id="form_message" name="message" class="form-control" placeholder="Message" rows="7" required="required" data-error="Please, leave me a message."></textarea>
                               <div class="form-control-border"></div>
                               <div class="help-block with-errors"></div>
                             </div>
                           </div>
-                        </div>
+                        
+                      </div>
+                      
 
       
                         <input type="submit" class="button btn-send disabled">
-                      </div>
-                    </form> -->
+                      </div> -->
+                    
                   <div class="controls two-columns ">
                     <div class="fields clearfix">
                       <div class="left-column ">
                         <form id="submit-form">
                           <div class="form-group">
 
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name*"
                               onkeyup="nameValidate()" required>
                           </div>
                           <div id="errormsg"></div>
                           <div class="form-group mt-3">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email*"
                               onkeyup="emailValidate()">
                           </div>
                           <div id="errormsg1"> </div>
                           <div class="form-group mt-3">
-                            <input type="number" class="form-control" name="subject" id="number"
-                              placeholder="phone number" onkeyup="mobileValidate()">
+                            <input type="number" class="form-control" name="phone_number" id="number"
+                              placeholder="phone number*" onkeyup="mobileValidate()">
                           </div>
 
                           <div id="errormsg2"> </div>
@@ -230,17 +233,16 @@
                       </div>
 
                       <div class="right-column ">
-                        <div class="form-group form-group-with-icon">
-                          <input id="form_name" type="text" name="subject" class="form-control" placeholder="Subject"
-                            required="required" data-error="Subject is required.">
-                          <div class="form-control-border"></div>
-                          <div class="help-block with-errors"></div>
+                        <div class="form-group">
+                          <input id="subject" type="text" name="subject" class="form-control" placeholder="Subject*"
+                            required="required" data-error="Subject is required." onkeyup="subjectValidate()">
                         </div>
+                        <div id="errormsg3"> </div>
                         <div class="form-group mt-3">
                           <textarea class="form-control" id="msg" name="message" rows="5" placeholder="Message"
                             onkeyup="messageValidate()"></textarea>
                         </div>
-                        <div id="errormsg3"> </div>
+                        <div id="errormsg4"> </div>
                         <div class="text-center"><button type="button" onclick="validate()">Send Message</button></div>
                         </form>
                       </div>
@@ -308,7 +310,7 @@
 
     function validate() {
 
-      if (nameValidate() == true && emailValidate() == true && mobileValidate() == true && messageValidate() == true) {
+      if (nameValidate() == true && emailValidate() == true && messageValidate() == true && mobileValidate() == true ) {
 
         $.ajax({
           url: "https://script.google.com/macros/s/AKfycbyTRhsk8m7YB0SN2tBfWwEL7yLcorToDJ-S9hDi9uSnRxl0CB6-EuaDsHTv-yexWYr1jQ/exec",
@@ -320,7 +322,7 @@
             //window.location.href="https://google.com"
           },
           error: function (err) {
-            alert("Please enter the values")
+            alert("Please enter the correct details")
 
           }
         })
@@ -331,7 +333,7 @@
 
     function nameValidate() {
       var varname = $('#name').val();
-      var pattern = /[a-zA-Z\s]+/;
+      var pattern = /^([a-zA-Z]+[ a-zA-Z]+)+$/
 
       if (varname == " ") {
         $('#errormsg').html("Name is mandatory");
@@ -341,6 +343,21 @@
         return true;
       } else {
         $('#errormsg').html("Enter correct name");
+        return false;
+      }
+    }
+    function subjectValidate() {
+      var varSubject = $('#subject').val();
+      var subjectPattern = /^([a-zA-Z0-9]+[ a-zA-Z0-9]+)+$/
+
+      if (varSubject == " ") {
+        $('#errormsg3').html("Subject is mandatory");
+        return false;
+      } else if (varSubject.match(subjectPattern)) {
+        $('#errormsg3').html("");
+        return true;
+      } else {
+        $('#errormsg3').html("Enter correct Subject");
         return false;
       }
     }
@@ -373,7 +390,7 @@
         $('#errormsg2').html("");
         return true;
       }
-      else if (varMobile.length < 10 || varMobile.length >= 10) {
+      else if (varMobile.length < 10 || varMobile.length > 10) {
         $('#errormsg2').html("Number should be 10 digits");
       }
       else {
@@ -386,10 +403,10 @@
       var varMessage = $('#msg').val();
 
       if (varMessage == "") {
-        $('#errormsg3').html("Enter something please");
+        $('#errormsg4').html("Enter something please");
         return false;
       } else {
-        $('#errormsg3').html("");
+        $('#errormsg4').html("");
         return true;
       }
     }
@@ -411,11 +428,12 @@
   <script src="js/validator.js"></script>
   <script src="js/main.js"></script>
 
-  <script>
+  <!-- <script>
     $("#submit-form").submit((e) => {
       e.preventDefault()
       $.ajax({
-        url: "https://script.google.com/macros/s/AKfycbyTRhsk8m7YB0SN2tBfWwEL7yLcorToDJ-S9hDi9uSnRxl0CB6-EuaDsHTv-yexWYr1jQ/exec",
+        
+        url: "https://script.google.com/macros/s/AKfycbx3XPDmGR-qc5oUaOC7dFqEu1sOdb6xxOz78m4noV5U75vr4c48no7CCduz-7x7hNwc/exec",
         data: $("#submit-form").serialize(),
         method: "post",
         success: function (response) {
@@ -429,7 +447,7 @@
         }
       })
     })
-  </script>
+  </script> -->
 
 </body>
 
