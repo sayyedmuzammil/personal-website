@@ -214,18 +214,17 @@
                         <form id="submit-form">
                           <div class="form-group">
 
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name*"
-                              onkeyup="nameValidate()" required>
+                            <input type="text" name="name" class="form-control" id="name" maxlength="20" placeholder="Your Name*"
+                              onkeyup="nameValidate()" required="required">
                           </div>
                           <div id="errormsg" ></div>
                           <div class="form-group mt-3">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email*"
-                              onkeyup="emailValidate()">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="30" placeholder="Your Email*"
+                              onkeyup="emailValidate()" required="required">
                           </div>
                           <div id="errormsg1" > </div>
                           <div class="form-group mt-3">
-                            <input type="number" class="form-control" name="phone_number" id="number"
-                              placeholder="phone number*" onkeyup="mobileValidate()">
+                            <input type="tel" maxlength="10" class="form-control" id="number"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" pattern="[1-9]{1}[0-9]{9}" required="required" onkeyup="mobileValidate()" placeholder="Mobile Number*">
                           </div>
 
                           <div id="errormsg2" > </div>
@@ -235,11 +234,11 @@
                       <div class="right-column ">
                         <div class="form-group">
                           <input id="subject" type="text" name="subject" class="form-control" placeholder="Subject*"
-                            required="required" data-error="Subject is required." onkeyup="subjectValidate()">
+                            required="required" maxlength="30" data-error="Subject is required." onkeyup="subjectValidate()">
                         </div>
                         <div id="errormsg3" > </div>
                         <div class="form-group mt-3">
-                          <textarea class="form-control" id="msg" name="message" rows="5" placeholder="Message"
+                          <textarea class="form-control" id="msg" maxlength="500" name="message" rows="5" placeholder="Message"
                             onkeyup="messageValidate()"></textarea>
                         </div>
                         <div id="errormsg4" > </div>
@@ -359,9 +358,6 @@
       }  else if (varSubject.length < 5 ) {
         $('#errormsg3').html("minimum 5 characters required.");
         return false;
-      } else if (varSubject.length > 30 ) {
-        $('#errormsg3').html("maximum 30 characters allowed.");
-        return false;
       } 
      else if (varSubject.match(subjectPattern)) {
         $('#errormsg3').html("");
@@ -394,7 +390,7 @@
       var mobilePattern = /^\d{10}$/;
 
       if (varMobile == "") {
-        $('#errormsg2').html("Contact number is mandatory");
+        $('#errormsg2').html("Only Digits Accepted");
         return false;
       } else if (varMobile.match(mobilePattern)) {
         $('#errormsg2').html("");
