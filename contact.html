@@ -217,18 +217,18 @@
                             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name*"
                               onkeyup="nameValidate()" required>
                           </div>
-                          <div id="errormsg"></div>
+                          <div id="errormsg" ></div>
                           <div class="form-group mt-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Your Email*"
                               onkeyup="emailValidate()">
                           </div>
-                          <div id="errormsg1"> </div>
+                          <div id="errormsg1" > </div>
                           <div class="form-group mt-3">
                             <input type="number" class="form-control" name="phone_number" id="number"
                               placeholder="phone number*" onkeyup="mobileValidate()">
                           </div>
 
-                          <div id="errormsg2"> </div>
+                          <div id="errormsg2" > </div>
 
                       </div>
 
@@ -237,12 +237,12 @@
                           <input id="subject" type="text" name="subject" class="form-control" placeholder="Subject*"
                             required="required" data-error="Subject is required." onkeyup="subjectValidate()">
                         </div>
-                        <div id="errormsg3"> </div>
+                        <div id="errormsg3" > </div>
                         <div class="form-group mt-3">
                           <textarea class="form-control" id="msg" name="message" rows="5" placeholder="Message"
                             onkeyup="messageValidate()"></textarea>
                         </div>
-                        <div id="errormsg4"> </div>
+                        <div id="errormsg4" > </div>
                         <div class="text-center"><button type="button" onclick="validate()">Send Message</button></div>
                         </form>
                       </div>
@@ -338,6 +338,9 @@
       if (varname == " ") {
         $('#errormsg').html("Name is mandatory");
         return false;
+      }  else if (varname.length < 3 ) {
+        $('#errormsg').html("minimum 3 characters required.");
+        return false;
       } else if (varname.match(pattern)) {
         $('#errormsg').html("");
         return true;
@@ -348,12 +351,19 @@
     }
     function subjectValidate() {
       var varSubject = $('#subject').val();
-      var subjectPattern = /^([a-zA-Z0-9]+[ a-zA-Z0-9]+)+$/
+      var subjectPattern = /^([a-zA-Z0-9()-_@&"',!.]+[ a-zA-Z0-9()-_@&"',!.]+)+$/
 
       if (varSubject == " ") {
         $('#errormsg3').html("Subject is mandatory");
         return false;
-      } else if (varSubject.match(subjectPattern)) {
+      }  else if (varSubject.length < 5 ) {
+        $('#errormsg3').html("minimum 5 characters required.");
+        return false;
+      } else if (varSubject.length > 30 ) {
+        $('#errormsg3').html("maximum 30 characters allowed.");
+        return false;
+      } 
+     else if (varSubject.match(subjectPattern)) {
         $('#errormsg3').html("");
         return true;
       } else {

@@ -249,7 +249,7 @@ img {
 .form-control:focus {
   height: 42px;
 }
-
+#errormsg, #errormsg1, #errormsg2, #errormsg3, #errormsg4{color: red;}
 .form-control,
 .form-control:focus,
 .has-error .form-control,
@@ -268,7 +268,7 @@ input[type="text"] {
   min-width: 100%;
   background: 0 0;
   text-align: left;
-  color: #eee;
+  color: #fff;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
