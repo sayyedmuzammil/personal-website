@@ -224,7 +224,7 @@
                           </div>
                           <div id="errormsg1" > </div>
                           <div class="form-group mt-3">
-                            <input type="tel" maxlength="10" class="form-control" id="number"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" pattern="[1-9]{1}[0-9]{9}" required="required" onkeyup="mobileValidate()" placeholder="Mobile Number*">
+                            <input type="tel" maxlength="10" class="form-control" id="number"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" pattern="[1-9]{1}[0-9]{9}" required="required" onkeyup="mobileValidate()" placeholder="Mobile Number*" name="phone_number">
                           </div>
 
                           <div id="errormsg2" > </div>
@@ -309,7 +309,7 @@
 
     function validate() {
 
-      if (nameValidate() == true && emailValidate() == true && messageValidate() == true && mobileValidate() == true ) {
+      if (nameValidate() == true && emailValidate() == true && messageValidate() == true && mobileValidate() == true && subjectValidate()==true) {
 
         $.ajax({
           url: "https://script.google.com/macros/s/AKfycbyTRhsk8m7YB0SN2tBfWwEL7yLcorToDJ-S9hDi9uSnRxl0CB6-EuaDsHTv-yexWYr1jQ/exec",
@@ -321,11 +321,15 @@
             //window.location.href="https://google.com"
           },
           error: function (err) {
-            alert("Please enter the correct details")
+            alert("Error occured in connection")
 
           }
+        
         })
 
+      }
+      else{
+        alert("Please fill all Details")
       }
     }
 
